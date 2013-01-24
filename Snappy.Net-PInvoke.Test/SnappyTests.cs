@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) Christopher Currens.  Licensed under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0.html)
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Snappy.Net.Test.Common;
@@ -47,6 +49,7 @@ namespace Snappy.Net.PInvoke.Test
         }
         
         //TODO: Write tests for GetUncompressedLength
+
 
         [Fact]
         public void TestIsValidCompressedBuffer_InvalidBuffer()

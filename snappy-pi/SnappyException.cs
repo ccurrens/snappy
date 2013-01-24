@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) Christopher Currens.  Licensed under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0.html)
+
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 

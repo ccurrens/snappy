@@ -1,3 +1,5 @@
+// Copyright (c) Christopher Currens.  Licensed under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0.html)
+
 #include "snappy.h"
 
 #define DllExport extern "C" __declspec(dllexport)

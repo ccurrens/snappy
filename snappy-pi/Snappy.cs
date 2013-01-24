@@ -1,10 +1,12 @@
-﻿using System;
+﻿// Copyright (c) Christopher Currens.  Licensed under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0.html)
+
+using System;
 
 namespace Snappy.Net
 {
     public static class Snappy
     {
-        public static ulong GetUncompressedLength(byte[] compressed)
+        public static long GetUncompressedLength(byte[] compressed)
         {
             if (compressed == null)
             {
@@ -14,10 +16,16 @@ namespace Snappy.Net
             ulong result;
             if (!NativeMethods.GetUncompressedLength(compressed, (ulong)compressed.Length, out result))
             {
-                throw new InvalidSnappyDataException();
+                throw new InvalidSnappyDataException("Compressed length couldn't be parsed from source data");
             }
             
-            return result;
+            if (result > long.MaxValue)
+            {
+                // This is most likely corrupt data...can't uncompress 8EB in memory in 2013.
+                throw new InvalidSnappyDataException("Uncompressed length is greater than Int64.MaxValue");
+            }
+
+            return (long)result;
         }
 
         public static bool IsValidCompressedBuffer(byte[] compressed)
@@ -78,7 +86,7 @@ namespace Snappy.Net
 
             if (!RawUncompress(compressed, buf))
             {
-                throw new InvalidSnappyDataException();
+                throw new InvalidSnappyDataException("Uncompress failed.  Data is likely corrupt.");
             }
 
             return buf;

@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) Christopher Currens.  Licensed under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0.html)
+
+using System;
 using System.Runtime.InteropServices;
 
 namespace Snappy.Net
@@ -15,9 +17,6 @@ namespace Snappy.Net
         [DllImport("snappy.dll", EntryPoint = "IsValidCompressedBuffer", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.U1)]
         private static extern bool IsValidCompressedBuffer32(byte[] compressed, uint compressedLength);
-
-        [DllImport("snappy.dll", EntryPoint = "MaxCompressedLength", CallingConvention = CallingConvention.StdCall)]
-        private static extern uint MaxCompressedLength32(uint sourceLength);
 
         [DllImport("snappy.dll", EntryPoint = "RawUncompress", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -36,9 +35,6 @@ namespace Snappy.Net
         [DllImport("snappy.dll", EntryPoint = "IsValidCompressedBuffer", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.U1)]
         private static extern bool IsValidCompressedBuffer64(byte[] compressed, ulong compressedLength);
-
-        [DllImport("snappy.dll", EntryPoint = "MaxCompressedLength", CallingConvention = CallingConvention.StdCall)]
-        private static extern ulong MaxCompressedLength64(ulong sourceLength);
 
         [DllImport("snappy.dll", EntryPoint = "RawUncompress", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -82,22 +78,6 @@ namespace Snappy.Net
             }
 
             return IsValidCompressedBuffer32(compressed, (uint)compressedLength);
-        }
-
-        public static ulong MaxCompressedLength(ulong sourceLength)
-        {
-            if (Environment.Is64BitProcess)
-            {
-                return MaxCompressedLength64(sourceLength);
-            }
-
-            if (sourceLength > uint.MaxValue)
-            {
-                throw new ArgumentOutOfRangeException("sourceLength",
-                                                      "Cannot determine max compressed length when source length is greater than UInt32.MaxValue on a 32 bit system");
-            }
-
-            return MaxCompressedLength32((uint) sourceLength);
         }
 
         public static bool RawUncompress(byte[] compressed, ulong compressedLength, byte[] uncompressed)
