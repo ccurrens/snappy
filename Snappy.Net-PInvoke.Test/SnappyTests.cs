@@ -34,10 +34,11 @@ namespace Snappy.Net.PInvoke.Test
         public void TestMaxCompressedLengthLong_NegativeValueShouldThrow()
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => Snappy.MaxCompressedLength(-55));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Snappy.MaxCompressedLength((long)-55));
         }
 
         [Fact]
-        public void TestMaxCompressedLengthInt_CompressedLengthGreaterThanLongMaxValueShouldThrow()
+        public void TestMaxCompressedLengthInt_CompressedLengthGreaterThanIntMaxValueShouldThrow()
         {
             Assert.Throws<SnappyException>(() => Snappy.MaxCompressedLength(int.MaxValue));
         }
@@ -48,8 +49,28 @@ namespace Snappy.Net.PInvoke.Test
             Assert.Throws<SnappyException>(() => Snappy.MaxCompressedLength(long.MaxValue));
         }
         
-        //TODO: Write tests for GetUncompressedLength
+        [Fact]
+        public void TestGetUncompressedLength_ValidDataShouldSucceed()
+        {
+            var variableInt = new byte[] {0xFE, 0xFF, 0x7F};
 
+            var result = Snappy.GetUncompressedLength(variableInt);
+
+            Assert.Equal(2097150, result);
+        }
+
+        [Fact]
+        public void TestGetUncompressedLength_InvalidData()
+        {
+            var variableInt = new byte[] {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+            Assert.Throws<InvalidSnappyDataException>(() => Snappy.GetUncompressedLength(variableInt));
+        }
+
+        [Fact]
+        public void TestGetUncompressedLength_NullArgumentShouldThrow()
+        {
+            Assert.Throws<ArgumentNullException>(() => Snappy.GetUncompressedLength(null));
+        }
 
         [Fact]
         public void TestIsValidCompressedBuffer_InvalidBuffer()
@@ -61,6 +82,24 @@ namespace Snappy.Net.PInvoke.Test
             Assert.False(result, "An valid compressed buffer was returned as invalid");
         }
 
+        [Fact]
+        public void TestIsValidCompressedBuffer_NullArgumentShouldThrow()
+        {
+            Assert.Throws<ArgumentNullException>(() => Snappy.IsValidCompressedBuffer(null));
+        }
+        
+        [Fact]
+        public void TestRawUncompress_NullArgumentShouldThrow()
+        {
+            Assert.Throws<ArgumentNullException>(() => Snappy.RawUncompress(null));
+        }
+
+        [Fact]
+        public void TestRawUncompress_OneValidArgumentOneNullArgumentShouldThrow()
+        {
+            Assert.Throws<ArgumentNullException>(() => Snappy.RawUncompress(new byte[10], null));
+            Assert.Throws<ArgumentNullException>(() => Snappy.RawUncompress(null, new byte[10]));
+        }
 
         [Fact]
         public void TestRawUncompress_BadDataShouldReturnFalse()
