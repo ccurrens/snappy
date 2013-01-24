@@ -18,8 +18,10 @@
     <ClInclude Include="snappy-exports.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="snappy-dll.cpp">
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="snappy-dll.cpp">
       <Filter>Source Files</Filter>
-    </ClInclude>
+    </ClCompile>
   </ItemGroup>
 </Project>
