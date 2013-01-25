@@ -91,14 +91,14 @@ namespace Snappy.Net.PInvoke.Test
         [Fact]
         public void TestRawUncompress_NullArgumentShouldThrow()
         {
-            Assert.Throws<ArgumentNullException>(() => Snappy.RawUncompress(null));
+            Assert.Throws<ArgumentNullException>(() => Snappy.Uncompress(null));
         }
 
         [Fact]
         public void TestRawUncompress_OneValidArgumentOneNullArgumentShouldThrow()
         {
-            Assert.Throws<ArgumentNullException>(() => Snappy.RawUncompress(new byte[10], null));
-            Assert.Throws<ArgumentNullException>(() => Snappy.RawUncompress(null, new byte[10]));
+            Assert.Throws<ArgumentNullException>(() => Snappy.Uncompress(new byte[10], null));
+            Assert.Throws<ArgumentNullException>(() => Snappy.Uncompress(null, new byte[10]));
         }
 
         [Fact]
@@ -107,7 +107,7 @@ namespace Snappy.Net.PInvoke.Test
             var compressed = TestData.GetResourceBytes("baddata3.snappy");
             var uncompBuf = new byte[130378]; // Uncompressed size from snappy data header
 
-            bool result = Snappy.RawUncompress(compressed, uncompBuf);
+            bool result = Snappy.Uncompress(compressed, uncompBuf);
 
             Assert.False(result, "Invalid data was returned as successfully uncompressed");
         }
@@ -117,7 +117,7 @@ namespace Snappy.Net.PInvoke.Test
         {
             var compressed = TestData.GetResourceBytes("baddata2.snappy");
 
-            Assert.Throws<InvalidSnappyDataException>(() => Snappy.RawUncompress(compressed));
+            Assert.Throws<InvalidSnappyDataException>(() => Snappy.Uncompress(compressed));
         }
 
         [Theory, InlineData("aaaaaaaa"), InlineData("abbababbabbabbabababaab"), InlineData("abccdbsaaababsbsdjh")]
@@ -125,8 +125,8 @@ namespace Snappy.Net.PInvoke.Test
         {
             var originalBytes = System.Text.Encoding.Unicode.GetBytes(data);
 
-            var compressedBytes = Snappy.RawCompress(originalBytes);
-            var uncompressedBytes = Snappy.RawUncompress(compressedBytes);
+            var compressedBytes = Snappy.Compress(originalBytes);
+            var uncompressedBytes = Snappy.Uncompress(compressedBytes);
 
             Assert.Equal(originalBytes, uncompressedBytes);
         }
@@ -134,8 +134,8 @@ namespace Snappy.Net.PInvoke.Test
         [Theory, ClassData(typeof(RandomTestData))]
         public void TestCompression_RandomData(byte[] data)
         {
-            var compressedBytes = Snappy.RawCompress(data);
-            var uncompressedBytes = Snappy.RawUncompress(compressedBytes);
+            var compressedBytes = Snappy.Compress(data);
+            var uncompressedBytes = Snappy.Uncompress(compressedBytes);
 
             Assert.Equal(data, uncompressedBytes);
         }

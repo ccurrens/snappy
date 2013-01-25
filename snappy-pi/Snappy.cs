@@ -74,7 +74,7 @@ namespace Snappy.Net
             }
         }
 
-        public static byte[] RawUncompress(byte[] compressed)
+        public static byte[] Uncompress(byte[] compressed)
         {
             if (compressed == null)
             {
@@ -84,7 +84,7 @@ namespace Snappy.Net
             var uncompressedLength = GetUncompressedLength(compressed);
             var buf = new byte[uncompressedLength];
 
-            if (!RawUncompress(compressed, buf))
+            if (!Uncompress(compressed, buf))
             {
                 throw new InvalidSnappyDataException("Uncompress failed.  Data is likely corrupt.");
             }
@@ -92,7 +92,7 @@ namespace Snappy.Net
             return buf;
         }
 
-        public static bool RawUncompress(byte[] compressed, byte[] uncompressed)
+        public static bool Uncompress(byte[] compressed, byte[] uncompressed)
         {
             if (compressed == null)
             {
@@ -107,7 +107,7 @@ namespace Snappy.Net
             return NativeMethods.RawUncompress(compressed, (ulong)compressed.Length, uncompressed);
         }
 
-        public static byte[] RawCompress(byte[] input)
+        public static byte[] Compress(byte[] input)
         {
             if (input == null)
             {
