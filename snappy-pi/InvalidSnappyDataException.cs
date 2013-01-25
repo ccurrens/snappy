@@ -8,7 +8,7 @@ namespace Snappy.Net
 {
     [Serializable]
     [ExcludeFromCodeCoverage]
-    public class InvalidSnappyDataException : Exception
+    public class InvalidSnappyDataException : SnappyException
     {
         //
         // For guidelines regarding the creation of new exception types, see
