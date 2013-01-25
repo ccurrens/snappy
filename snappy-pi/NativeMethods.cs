@@ -10,37 +10,37 @@ namespace Snappy.Net
         /************************************************
          * 32-bit signatures
          ************************************************/
-        [DllImport("snappy.dll", EntryPoint = "GetUncompressedLength", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("snappy.dll", EntryPoint = "GetUncompressedLength", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)] // Prevents the runtime from marshalling 0xcccccc00 as true instead of false
         private static extern bool GetUncompressedLength32(byte[] compressed, uint compressedLength, out uint result);
 
-        [DllImport("snappy.dll", EntryPoint = "IsValidCompressedBuffer", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("snappy.dll", EntryPoint = "IsValidCompressedBuffer", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         private static extern bool IsValidCompressedBuffer32(byte[] compressed, uint compressedLength);
 
-        [DllImport("snappy.dll", EntryPoint = "RawUncompress", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("snappy.dll", EntryPoint = "RawUncompress", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         private static extern bool RawUncompress32(byte[] compressed, uint compressedLength, byte[] uncompressed);
 
-        [DllImport("snappy.dll", EntryPoint = "RawCompress", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("snappy.dll", EntryPoint = "RawCompress", CallingConvention = CallingConvention.Cdecl)]
         private static extern void RawCompress32(byte[] input, uint inputLength, byte[] compressed, out uint compressedLength);
 
         /************************************************
          * 64-bit signatures
          ************************************************/
-        [DllImport("snappy.dll", EntryPoint = "GetUncompressedLength", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("snappy.dll", EntryPoint = "GetUncompressedLength", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)] // Prevents the runtime from marshalling 0xcccccc00 as true instead of false
         private static extern bool GetUncompressedLength64(byte[] compressed, ulong compressedLength, out ulong result);
 
-        [DllImport("snappy.dll", EntryPoint = "IsValidCompressedBuffer", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("snappy.dll", EntryPoint = "IsValidCompressedBuffer", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         private static extern bool IsValidCompressedBuffer64(byte[] compressed, ulong compressedLength);
 
-        [DllImport("snappy.dll", EntryPoint = "RawUncompress", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("snappy.dll", EntryPoint = "RawUncompress", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         private static extern bool RawUncompress64(byte[] compressed, ulong compressedLength, byte[] uncompressed);
 
-        [DllImport("snappy.dll", EntryPoint = "RawCompress", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("snappy.dll", EntryPoint = "RawCompress", CallingConvention = CallingConvention.Cdecl)]
         private static extern void RawCompress64(byte[] input, ulong inputLength, byte[] compressed, out ulong compressedLength);
 
         public static bool GetUncompressedLength(byte[] compressed, ulong compressedLength, out ulong result)

@@ -73,9 +73,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\snappy-pi\Snappy.Net-PInvoke.csproj">
-      <Project>{97455bd4-c9bd-48f4-a6a8-5807fa743443}</Project>
-      <Name>Snappy.Net-PInvoke</Name>
+    <ProjectReference Include="..\Snappy.Net-CppCli\Snappy.Net-CppCli.vcxproj">
+      <Project>{2de8d08f-6e52-430f-bd56-ba8089b41fa5}</Project>
+      <Name>Snappy.Net-CppCli</Name>
     </ProjectReference>
     <ProjectReference Include="..\Snappy.Net.Test.Common\Snappy.Net.Test.Common.csproj">
       <Project>{c79bab17-3236-4d44-a63a-40245a59907b}</Project>

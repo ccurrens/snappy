@@ -6,14 +6,16 @@ using namespace System;
 
 namespace Snappy { namespace Net {
 
-    public ref class Snappy
+    public ref class Snappy abstract sealed
     {
     public:
-        long GetUncompressedLength(array<Byte>^ compressed);
-        bool IsValidCompressedBuffer(array<Byte>^ compressed);
-        long MaxCompressedLength(long sourceLength);
-        array<Byte>^ Uncompress(array<Byte>^ compressed);
-        bool Uncompress(array<Byte>^ compressed, array<Byte>^ uncompressed);
-        array<Byte>^ Compress(array<Byte>^ input);
+        static long GetUncompressedLength(array<Byte>^ compressed);
+        static bool IsValidCompressedBuffer(array<Byte>^ compressed);
+        static long MaxCompressedLength(long sourceLength);
+        static array<Byte>^ Uncompress(array<Byte>^ compressed);
+        static bool Uncompress(array<Byte>^ compressed, array<Byte>^ uncompressed);
+        static array<Byte>^ Compress(array<Byte>^ input);
+    private:
+        static long Compress(array<Byte>^ input, array<Byte>^ buffer);
     };
 }}

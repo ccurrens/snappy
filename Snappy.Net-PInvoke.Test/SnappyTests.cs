@@ -16,7 +16,7 @@ namespace Snappy.Net.PInvoke.Test
         {
             const long compSize = 10;
 
-            long maxCompLen = Snappy.MaxCompressedLength(compSize);
+            long maxCompLen = Snappy.MaxCompressedLength((int)compSize);
 
             Assert.True(maxCompLen > 0, "Max compressed length should be greater than 0");
         }
@@ -34,7 +34,7 @@ namespace Snappy.Net.PInvoke.Test
         public void TestMaxCompressedLengthLong_NegativeValueShouldThrow()
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => Snappy.MaxCompressedLength(-55));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Snappy.MaxCompressedLength((long)-55));
+            //Assert.Throws<ArgumentOutOfRangeException>(() => Snappy.MaxCompressedLength((long)-55));
         }
 
         [Fact]
@@ -43,11 +43,11 @@ namespace Snappy.Net.PInvoke.Test
             Assert.Throws<SnappyException>(() => Snappy.MaxCompressedLength(int.MaxValue));
         }
 
-        [Fact]
-        public void TestMaxCompressedLengthLong_CompressedLengthGreaterThanLongMaxValueShouldThrow()
-        {
-            Assert.Throws<SnappyException>(() => Snappy.MaxCompressedLength(long.MaxValue));
-        }
+        //[Fact]
+        //public void TestMaxCompressedLengthLong_CompressedLengthGreaterThanLongMaxValueShouldThrow()
+        //{
+        //    Assert.Throws<SnappyException>(() => Snappy.MaxCompressedLength(long.MaxValue));
+        //}
         
         [Fact]
         public void TestGetUncompressedLength_ValidDataShouldSucceed()
